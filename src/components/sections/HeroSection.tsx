@@ -76,7 +76,7 @@ const HeroSection = () => {
             animationPattern="sync"
             repeatBehavior="loop"
             animationSpeed={0.6}
-            glowIntensity={12}
+            glowIntensity={5}
             strokeWidth={2}
             fontSize="clamp(2.5rem, 8vw, 5rem)"
             fontWeight={900}
@@ -93,7 +93,7 @@ const HeroSection = () => {
   letterSpacing: "0.02em",
   color: "#ffffff",
   lineHeight: 1,
-  textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.4)",
+  textShadow: "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)",
 }}
           >
             Kaifuddin
