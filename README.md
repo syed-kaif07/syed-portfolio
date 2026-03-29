@@ -1,3 +1,13 @@
-# Welcome to your Lovable project
+# Syed Kaifuddin Portfolio
 
-TODO: Document your project here
+AI Agent Systems & Full Stack Developer
+
+## Tech Stack
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+## Projects
+- Market Research Crew (Multi-Agent AI)
+- AnimeHub
+- Travel Itinerary Generator
