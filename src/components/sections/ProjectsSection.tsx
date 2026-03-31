@@ -135,7 +135,7 @@ function ProjectMorphDesktop({ project }: { project: Project }) {
               {project.live && (
                 <a href={project.live} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm font-medium text-white underline underline-offset-4 hover:text-white/70 transition-all">
-                  <ExternalLink size={15} /> Live Demo
+                  <ExternalLink size={15} /> View Project
                 </a>
               )}
             </div>
@@ -204,8 +204,8 @@ function ProjectCardMobile({ project }: { project: Project }) {
 const ProjectsSection = () => {
   return (
     <section id="projects">
-      <div className="py-xxl px-l max-w-content mx-auto">
-        <h2 className="font-heading text-foreground mb-4 text-5xl md:text-6xl text-left">Projects</h2>
+      <div className="py-xxl">
+        <h2 className="font-heading font-black uppercase tracking-tighter text-foreground text-left text-[4rem] leading-none md:text-[6rem] lg:text-[8rem] mb-4 px-4 md:px-8">Projects</h2>
       </div>
 
       {/* Desktop — morphing effect */}
