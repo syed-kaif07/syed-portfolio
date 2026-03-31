@@ -9,11 +9,14 @@ interface Project {
   stack: string[];
   github: string;
   live?: string;
-  featured?: boolean;
+  image: string;
+  index: number;
+  reverse?: boolean;
 }
 
 const projects: Project[] = [
   {
+    index: 1,
     title: "Market Research Crew",
     subtitle: "Multi-Agent AI System",
     problem: "Manual research and content generation workflows are slow and inconsistent",
@@ -22,9 +25,10 @@ const projects: Project[] = [
     stack: ["Python", "CrewAI", "Groq LLaMA 3.3", "Streamlit", "YAML"],
     github: "#",
     live: "#",
-    featured: true,
+    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",
   },
   {
+    index: 2,
     title: "AnimeHub",
     subtitle: "Full-Stack Streaming Platform",
     problem: "Existing anime platforms are cluttered and lack clean browsing experience",
@@ -32,8 +36,11 @@ const projects: Project[] = [
     impact: "Delivered fast, clean browsing experience with user personalization features.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
     github: "#",
+    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80",
+    reverse: true,
   },
   {
+    index: 3,
     title: "Travel AI",
     subtitle: "AI-Powered Itinerary Generator",
     problem: "Users struggle to create personalized travel plans based on preferences",
@@ -41,80 +48,103 @@ const projects: Project[] = [
     impact: "Generated personalized itineraries instantly based on user preferences.",
     stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
     github: "#",
+    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
   },
 ];
 
-const ProjectCard = ({ project }: { project: Project }) => (
-  <div
-    className={`flex flex-col justify-between rounded-lg border border-border bg-surface p-[24px] transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_20px_hsl(252_100%_68%/0.15)] hover:scale-[1.02] ${
-      project.featured ? "md:col-span-2 md:p-[32px]" : ""
-    }`}
-  >
-    <div className="flex flex-col gap-4">
-      <div>
-        <h3 className={`font-heading text-foreground ${project.featured ? "text-2xl" : ""}`}>
-          {project.title}
-        </h3>
-        <p className="mt-1 text-sm text-accent/80 font-medium">{project.subtitle}</p>
-      </div>
+const ProjectRow = ({ project }: { project: Project }) => (
+  <div className="group border-t border-border py-12">
+    <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-start ${project.reverse ? "md:[direction:rtl]" : ""}`}>
 
-      <p className="text-sm text-text-secondary">
-        <span className="font-medium text-foreground">Problem:</span>{" "}
-        {project.problem}
-      </p>
-      <p className="text-sm text-text-secondary">
-        <span className="font-medium text-foreground">Solution:</span>{" "}
-        {project.solution}
-      </p>
-      <p className="text-sm text-accent/70 italic">
-        ↳ {project.impact}
-      </p>
-
-      <div className="flex flex-wrap gap-2 pt-1">
-        {project.stack.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full border border-border bg-background px-3 py-1 text-xs text-text-secondary"
-          >
-            {tech}
+      {/* Left col — title + problem + solution */}
+      <div className="flex flex-col gap-5" style={{ direction: "ltr" }}>
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-sm text-white/30">
+            {String(project.index).padStart(2, "0")}
           </span>
-        ))}
-      </div>
-    </div>
+          <h3
+            className="font-heading font-black uppercase leading-none tracking-tight text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+          >
+            {project.title}
+          </h3>
+          <p className="text-sm font-medium text-white/40 uppercase tracking-widest mt-1">
+            {project.subtitle}
+          </p>
+        </div>
 
-    <div className="mt-6 flex items-center gap-m">
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 text-sm font-medium text-text-secondary transition-all duration-300 hover:text-foreground hover:drop-shadow-[0_0_6px_hsl(252_100%_68%/0.4)]"
-      >
-        <Github size={16} /> GitHub
-      </a>
-      {project.live && (
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm font-medium text-accent transition-all duration-300 hover:text-accent hover:drop-shadow-[0_0_8px_hsl(252_100%_68%/0.5)]"
-        >
-          <ExternalLink size={16} /> Live Demo
-        </a>
-      )}
+        <div className="flex flex-col gap-3">
+          <p className="text-base text-white/60">
+            <span className="font-semibold text-white">Problem:</span>{" "}
+            {project.problem}
+          </p>
+          <p className="text-base text-white/60">
+            <span className="font-semibold text-white">Solution:</span>{" "}
+            {project.solution}
+          </p>
+          <p className="text-base text-white/40 italic">↳ {project.impact}</p>
+        </div>
+      </div>
+
+      {/* Right col — image + stack + links */}
+      <div className="flex flex-col gap-4" style={{ direction: "ltr" }}>
+        <div className="overflow-hidden rounded-lg">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {project.stack.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/50"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-6">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-medium text-white/50 transition-all hover:text-white"
+          >
+            <Github size={15} /> GitHub
+          </a>
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm font-medium text-white underline underline-offset-4 transition-all hover:text-white/70"
+            >
+              <ExternalLink size={15} /> Live Demo
+            </a>
+          )}
+        </div>
+      </div>
+
     </div>
   </div>
 );
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-xxl">
-      <h2 className="text-center font-heading text-foreground">Projects</h2>
+    <section id="projects" className="py-xxl px-l max-w-content mx-auto">
+      <h1 className="font-heading text-foreground mb-4">Projects</h1>
 
-      <div className="mt-xl grid grid-cols-1 gap-m md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex flex-col">
         {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <ProjectRow key={project.title} project={project} />
         ))}
       </div>
+
+      <div className="border-t border-border" />
     </section>
   );
 };

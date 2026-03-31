@@ -6,8 +6,9 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: true,        // or "0.0.0.0" — binds to all interfaces
     port: 8080,
+    allowedHosts: ['.ngrok-free.app'],  // ← this is where ngrok goes
     hmr: {
       overlay: false,
     },

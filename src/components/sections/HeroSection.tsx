@@ -69,14 +69,14 @@ const HeroSection = () => {
         >
           {/* Syed — flicker effect */}
           <FlickerText
-            text="Syed"
+            text="SYED"
             textColor="#ffffff"
             glowColor="#ffffff"
             animationStyle="electric"
             animationPattern="sync"
             repeatBehavior="loop"
             animationSpeed={0.6}
-            glowIntensity={5}
+            glowIntensity={4}
             strokeWidth={2}
             fontSize="clamp(2.5rem, 8vw, 5rem)"
             fontWeight={900}
@@ -96,7 +96,7 @@ const HeroSection = () => {
   textShadow: "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)",
 }}
           >
-            Kaifuddin
+            KAIFUDDIN
           </span>
         </motion.div>
 

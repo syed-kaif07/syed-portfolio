@@ -19,7 +19,7 @@ const skillGroups = [
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="py-xxl">
+    <section id="skills" className="py-xxl px-l max-w-content mx-auto">
       <h2 className="text-center font-heading text-foreground">Skills</h2>
 
       <div className="mt-xl grid grid-cols-1 gap-m sm:grid-cols-2 lg:grid-cols-4">

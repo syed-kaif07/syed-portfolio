@@ -20,7 +20,7 @@ const items = [
 
 const WhatIBuildSection = () => {
   return (
-    <section id="what-i-build" className="py-xxl">
+    <section id="what-i-build" className="py-xxl px-l max-w-content mx-auto">
       <h2 className="text-center font-heading text-foreground">What I Build</h2>
 
       <div className="mt-xl grid grid-cols-1 gap-m md:grid-cols-3">

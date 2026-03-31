@@ -7,7 +7,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
-      <main className="mx-auto max-w-content px-l">
+      <main className="w-full">
         {children}
       </main>
     </div>
