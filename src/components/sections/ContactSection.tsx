@@ -1,9 +1,9 @@
 import { Mail, Linkedin, Github } from "lucide-react";
 
 const links = [
-  { icon: Mail, label: "Email", href: "mailto:hello@syedkaifuddin.dev" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/syedkaifuddin" },
-  { icon: Github, label: "GitHub", href: "https://github.com/syedkaifuddin" },
+  { icon: Mail, label: "Email", href: "mailto:syedkaifuddin4@gmail.com" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/syed-kaifuddin-113955253/" },
+  { icon: Github, label: "GitHub", href: "https://github.com/syed-kaif07" },
 ];
 
 const ContactSection = () => {
