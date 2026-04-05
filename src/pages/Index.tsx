@@ -1,6 +1,7 @@
 import MainLayout from "@/layouts/MainLayout";
 import DockNav from "@/components/DockNav";
 import HeroSection from "@/components/sections/HeroSection";
+import AboutSection from "@/components/sections/AboutSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
@@ -12,6 +13,7 @@ const Index = () => {
     <MainLayout>
       <DockNav />
       <HeroSection />
+      <AboutSection /> 
       <TechStackSection />
       <ProjectsSection />
       <WhatIBuildSection />

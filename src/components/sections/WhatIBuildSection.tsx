@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Bot, Globe, Server, LucideIcon } from "lucide-react";
+import { BorderBeam } from "@/components/ui/borderbeam";
 
 const items = [
   {
@@ -9,6 +10,7 @@ const items = [
     gradient: "radial-gradient(ellipse at top left, rgba(168,85,247,0.18) 0%, transparent 65%)",
     iconColor: "text-purple-400",
     glowShadow: "0 0 55px rgba(168,85,247,0.22), 0 0 20px rgba(168,85,247,0.12)",
+    beamDelay: 0,
   },
   {
     icon: Globe,
@@ -17,6 +19,7 @@ const items = [
     gradient: "radial-gradient(ellipse at top left, rgba(59,130,246,0.18) 0%, transparent 65%)",
     iconColor: "text-blue-400",
     glowShadow: "0 0 55px rgba(59,130,246,0.22), 0 0 20px rgba(59,130,246,0.12)",
+    beamDelay: 2,
   },
   {
     icon: Server,
@@ -25,6 +28,7 @@ const items = [
     gradient: "radial-gradient(ellipse at top left, rgba(20,184,166,0.18) 0%, transparent 65%)",
     iconColor: "text-teal-400",
     glowShadow: "0 0 55px rgba(20,184,166,0.22), 0 0 20px rgba(20,184,166,0.12)",
+    beamDelay: 4,
   },
 ];
 
@@ -35,9 +39,10 @@ interface BuildCardProps {
   gradient: string;
   iconColor: string;
   glowShadow: string;
+  beamDelay: number;
 }
 
-const BuildCard = ({ icon: Icon, title, description, gradient, iconColor, glowShadow }: BuildCardProps) => {
+const BuildCard = ({ icon: Icon, title, description, gradient, iconColor, glowShadow, beamDelay }: BuildCardProps) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -52,6 +57,15 @@ const BuildCard = ({ icon: Icon, title, description, gradient, iconColor, glowSh
         transition: "box-shadow 0.4s ease, border-color 0.3s ease",
       }}
     >
+      <BorderBeam
+        size={80}
+        duration={8}
+        delay={beamDelay}
+        colorFrom="#ffffff"
+        colorTo="transparent"
+        borderWidth={1}
+      />
+
       {/* Icon */}
       <div className={`flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 ${iconColor}`}>
         <Icon size={24} />

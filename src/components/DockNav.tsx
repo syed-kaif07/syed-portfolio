@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Home, Layers, FolderOpen, Wrench, Cpu, Mail } from "lucide-react";
+import { Home, Layers, FolderOpen, Wrench, Cpu, Mail, User } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -8,6 +8,7 @@ import {
 
 const navItems = [
   { id: "hero", label: "Home", icon: Home },
+  { id: "about", label: "About", icon: User },
   { id: "techstack", label: "Tech Stack", icon: Layers },
   { id: "projects", label: "Projects", icon: FolderOpen },
   { id: "what-i-build", label: "What I Build", icon: Wrench },

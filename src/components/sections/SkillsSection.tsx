@@ -1,4 +1,5 @@
 import { Brain, Server, Monitor, Database, LucideIcon } from "lucide-react";
+import { BorderBeam } from "@/components/ui/borderbeam";
 
 interface SkillCardProps {
   badge: string;
@@ -6,14 +7,24 @@ interface SkillCardProps {
   icon: LucideIcon;
   skills: string[];
   className?: string;
+  beamDelay?: number;
 }
 
-const SkillCard = ({ badge, title, icon: Icon, skills, className = "" }: SkillCardProps) => (
+const SkillCard = ({ badge, title, icon: Icon, skills, className = "", beamDelay = 0 }: SkillCardProps) => (
   <div
     className={`group relative rounded-2xl border border-white/10 bg-[#0d0d0d] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-white/20 hover:bg-[#111] ${className}`}
   >
     {/* Subtle glow on hover */}
     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/[0.03] to-transparent" />
+
+    <BorderBeam
+      size={80}
+      duration={8}
+      delay={beamDelay}
+      colorFrom="#ffffff"
+      colorTo="transparent"
+      borderWidth={1}
+    />
 
     <div className="relative z-10 p-6 flex flex-col h-full">
       {/* Top row: badge + icon */}
@@ -67,6 +78,7 @@ const SkillsSection = () => {
             icon={Brain}
             skills={["LangChain", "LLM Integration", "RAG Pipelines", "Agent Design"]}
             className="md:col-span-2 md:row-span-1"
+            beamDelay={0}
           />
           <SkillCard
             badge="Server"
@@ -74,6 +86,7 @@ const SkillsSection = () => {
             icon={Server}
             skills={["FastAPI", "Node.js", "PostgreSQL", "Redis"]}
             className="md:col-span-1 md:row-span-1"
+            beamDelay={2}
           />
 
           {/* Row 2: Square (col 1) + Wide (col 2-3) */}
@@ -83,6 +96,7 @@ const SkillsSection = () => {
             icon={Monitor}
             skills={["React", "Next.js", "TypeScript", "Tailwind CSS"]}
             className="md:col-span-1 md:row-span-1"
+            beamDelay={4}
           />
           <SkillCard
             badge="Storage"
@@ -90,6 +104,7 @@ const SkillsSection = () => {
             icon={Database}
             skills={["PostgreSQL", "MongoDB", "Supabase", "Prisma"]}
             className="md:col-span-2 md:row-span-1"
+            beamDelay={6}
           />
 
         </div>
