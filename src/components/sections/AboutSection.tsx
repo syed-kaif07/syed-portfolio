@@ -224,7 +224,7 @@ const AboutSection = () => {
                 <span className="inline-block rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-white/50 mb-3">Education</span>
                 <h3 className="font-heading text-base font-black uppercase tracking-tight text-white leading-tight mb-2">CS — Data Science</h3>
                 <div className="h-px bg-white/[0.08] mb-3" />
-                <p className="text-xs text-white/40 leading-relaxed">Final year @ Kodnest.</p>
+                <p className="text-xs text-white/40 leading-relaxed">Final year Intern @ Kodnest.</p>
               </div>
             </BentoCard>
 

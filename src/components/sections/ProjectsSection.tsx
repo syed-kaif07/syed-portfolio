@@ -50,7 +50,7 @@ const projects: Project[] = [
     impact: "Generated personalized itineraries instantly based on user preferences.",
     stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
     github: "#",
-    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+    video: "/videos/travel.mp4",
   },
 ];
 
