@@ -1,40 +1,52 @@
-import { useState, useEffect } from "react";
 import StarsGalaxyBackground from "@/components/StarsGalaxyBackground";
-import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { EyeFollowButton } from "@/components/ui/EyeFollowButton";
-import { MinimalButton } from "@/components/ui/PremiumGlowButton";
 import { FlickerText } from "@/components/ui/FlickerText";
 
-const roles = [
-  "AI Agent Systems",
-  "Automation Workflows",
-  "API-Driven Platforms",
-];
+// ── Shiny Text ────────────────────────────────────────────────────────────────
+const ShinyText = ({
+  children,
+  speed = 3,
+}: {
+  children: React.ReactNode;
+  speed?: number;
+}) => (
+  <>
+    <style>{`
+      @keyframes shine {
+        0%   { background-position: 100%; }
+        100% { background-position: -100%; }
+      }
+      .shiny-text {
+        background: linear-gradient(
+          120deg,
+          rgba(255,255,255,0.3) 0%,
+          rgba(255,255,255,0.3) 40%,
+          rgba(255,255,255,1)   50%,
+          rgba(255,255,255,0.3) 60%,
+          rgba(255,255,255,0.3) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shine ${speed}s linear infinite;
+      }
+
+      @media (min-width: 768px) {
+        .cta-wrapper > div {
+          padding-left: 48px !important;
+          padding-right: 48px !important;
+        }
+      }
+    `}</style>
+    <span className="shiny-text">{children}</span>
+  </>
+);
+// ─────────────────────────────────────────────────────────────────────────────
 
 const HeroSection = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = roles[roleIndex];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!isDeleting && displayed.length < current.length) {
-      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
-    } else if (!isDeleting && displayed.length === current.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 2500);
-    } else if (isDeleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 35);
-    } else if (isDeleting && displayed.length === 0) {
-      setIsDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayed, isDeleting, roleIndex]);
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -42,7 +54,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#030305]"
+      className="relative flex min-h-[75vh] items-center justify-center overflow-hidden bg-[#030305]"
     >
       <StarsGalaxyBackground />
 
@@ -50,24 +62,14 @@ const HeroSection = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030305_100%)] opacity-60" />
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-sm text-white backdrop-blur-md"
-        >
-          <Sparkles size={14} className="animate-pulse" />
-          <span className="font-medium tracking-wide">3+ Real AI Projects Built</span>
-        </motion.div>
 
-        {/* Name row */}
+        {/* Name */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           className="flex flex-wrap items-baseline justify-center gap-4"
         >
-          {/* Syed — flicker effect */}
           <FlickerText
             text="SYED"
             textColor="#ffffff"
@@ -83,56 +85,68 @@ const HeroSection = () => {
             fontFamily="Space Grotesk, sans-serif"
             letterSpacing="0.02em"
           />
-
-          {/* Kaifuddin — plain bold white */}
           <span
             style={{
-  fontSize: "clamp(2.5rem, 8vw, 5rem)",
-  fontWeight: 900,
-  fontFamily: "Space Grotesk, sans-serif",
-  letterSpacing: "0.02em",
-  color: "#ffffff",
-  lineHeight: 1,
-  textShadow: "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)",
-}}
+              fontSize: "clamp(2.5rem, 8vw, 5rem)",
+              fontWeight: 900,
+              fontFamily: "Space Grotesk, sans-serif",
+              letterSpacing: "0.02em",
+              color: "#ffffff",
+              lineHeight: 1,
+              textShadow:
+                "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)",
+            }}
           >
             KAIFUDDIN
           </span>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="mt-6 text-xl font-medium text-white/70 md:text-3xl tracking-wide"
-        >
-          AI Agent Systems &amp; Full Stack Engineer
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-5 h-8 font-heading text-xl text-slate-300/80 md:text-2xl"
-        >
-          <span>{displayed}</span>
-          <span className="ml-[2px] inline-block w-[3px] animate-pulse bg-white align-middle" style={{ height: "1.2em" }} />
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="mt-6 max-w-[600px] text-lg text-slate-400 leading-relaxed"
-        >
-          I build intelligent agent workflows that automate complex tasks and drive real-world decision making.
-        </motion.p>
-
+        {/* Subtitle — pill badge with shiny text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5"
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="mt-6"
+        >
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "8px 20px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.15)",
+              background: "rgba(255,255,255,0.04)",
+              backdropFilter: "blur(8px)",
+              fontSize: "clamp(0.7rem, 3.5vw, 1.2rem)",
+              fontWeight: 500,
+              letterSpacing: "0.03em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <ShinyText speed={3}>
+              AI Agents • Full Stack • CrewAI • LLM's
+            </ShinyText>
+          </span>
+        </motion.div>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="mt-5 max-w-[1300px] text-2xl md:text-4xl font-normal text-white leading-tight tracking-tight"
+        >
+          I build intelligent agent workflows that automate complex tasks and
+          drive real-world decision making.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="mt-10 cta-wrapper"
         >
           <EyeFollowButton
             text="Explore My Work"
@@ -151,15 +165,7 @@ const HeroSection = () => {
             blinkingIntensity={2500}
             paddingX={24}
             paddingY={13}
-            fontSize={14}
-            fontWeight={600}
-          />
-          <MinimalButton
-            text="Contact Me"
-            onClick={() => scrollTo("contact")}
-            paddingX={32}
-            paddingY={14}
-            fontSize={14}
+            fontSize={18}
             fontWeight={500}
           />
         </motion.div>

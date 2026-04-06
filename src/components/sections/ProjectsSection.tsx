@@ -12,7 +12,8 @@ interface Project {
   stack: string[];
   github: string;
   live?: string;
-  image: string;
+  image?: string;
+  video?: string;
   index: number;
 }
 
@@ -25,9 +26,9 @@ const projects: Project[] = [
     solution: "Built a 5-agent AI pipeline that automates research, analysis, and reporting",
     impact: "Reduced manual research effort and automated structured insights generation.",
     stack: ["Python", "CrewAI", "Groq LLaMA 3.3", "Streamlit", "YAML"],
-    github: "#",
+    github: "https://github.com/syed-kaif07/market-research-crew",
     live: "#",
-    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",
+    video: "/videos/market-research.mp4",
   },
   {
     index: 2,
@@ -37,8 +38,8 @@ const projects: Project[] = [
     solution: "Built a full-stack streaming platform with clean UI and user personalization",
     impact: "Delivered fast, clean browsing experience with user personalization features.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
-    github: "#",
-    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80",
+    github: "https://github.com/syed-kaif07/animehub",
+    video: "/videos/animehub.mp4",
   },
   {
     index: 3,
@@ -53,8 +54,14 @@ const projects: Project[] = [
   },
 ];
 
-// Image with custom animated cursor, default cursor hidden
-function ImageWithPointer({ src, alt, label }: { src: string; alt: string; label: string }) {
+// Media with custom animated cursor
+function MediaWithPointer({
+  project,
+  label,
+}: {
+  project: Project;
+  label: string;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isInside, setIsInside] = useState(false);
@@ -62,10 +69,7 @@ function ImageWithPointer({ src, alt, label }: { src: string; alt: string; label
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
-    setPos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
   return (
@@ -76,11 +80,23 @@ function ImageWithPointer({ src, alt, label }: { src: string; alt: string; label
       onMouseLeave={() => setIsInside(false)}
       className="overflow-hidden rounded-2xl w-full relative cursor-none"
     >
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-[480px] object-cover rounded-2xl"
-      />
+      {project.video ? (
+  <video
+    src={project.video}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-[480px] object-cover rounded-2xl"
+    style={{ objectPosition: project.index === 2 ? "top" : "center" }}
+  />
+) : (
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-[480px] object-cover rounded-2xl"
+        />
+      )}
 
       <AnimatePresence>
         {isInside && (
@@ -92,7 +108,6 @@ function ImageWithPointer({ src, alt, label }: { src: string; alt: string; label
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.15 }}
           >
-            {/* Arrow */}
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -103,7 +118,6 @@ function ImageWithPointer({ src, alt, label }: { src: string; alt: string; label
             >
               <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
             </svg>
-            {/* Label pill */}
             <div className="mt-1 ml-1 whitespace-nowrap rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 text-xs font-medium text-white shadow-lg">
               {label}
             </div>
@@ -139,7 +153,6 @@ function ProjectsDesktop() {
 
   return (
     <div className="flex">
-      {/* Left sticky nav */}
       <div className="w-[260px] flex-shrink-0 sticky top-0 h-screen flex flex-col justify-center pl-8 pr-6 z-10">
         <div className="flex flex-col gap-3">
           {projects.map((p, i) => (
@@ -163,7 +176,6 @@ function ProjectsDesktop() {
         </div>
       </div>
 
-      {/* Right scrollable projects */}
       <div className="flex-1">
         {projects.map((project, i) => (
           <div
@@ -180,11 +192,7 @@ function ProjectsDesktop() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="flex flex-col gap-8 w-full"
               >
-                <ImageWithPointer
-                  src={project.image}
-                  alt={project.title}
-                  label={project.subtitle}
-                />
+                <MediaWithPointer project={project} label={project.subtitle} />
 
                 <div className="flex flex-col md:flex-row gap-8 justify-between">
                   <div className="flex flex-col gap-4 md:w-[55%]">
@@ -225,6 +233,8 @@ function ProjectsDesktop() {
                         </span>
                       ))}
                     </div>
+
+                    {/* ✅ FIXED LINKS */}
                     <div className="flex items-center gap-6 mt-2">
                       <a
                         href={project.github}
@@ -235,6 +245,7 @@ function ProjectsDesktop() {
                         <Github size={15} />
                         <span>GitHub</span>
                       </a>
+
                       {project.live && (
                         <a
                           href={project.live}
@@ -272,13 +283,26 @@ function ProjectCardMobile({ project }: { project: Project }) {
         <p className="text-sm font-medium text-white/40 uppercase tracking-widest">
           {project.subtitle}
         </p>
+
         <div className="overflow-hidden rounded-lg">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-[220px] object-cover"
-          />
+          {project.video ? (
+            <video
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-[220px] object-cover"
+            />
+          ) : (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-[220px] object-cover"
+            />
+          )}
         </div>
+
         <div className="flex flex-col gap-3">
           <p className="text-base text-white/60">
             <span className="font-semibold text-white">Problem:</span>{" "}
@@ -292,6 +316,7 @@ function ProjectCardMobile({ project }: { project: Project }) {
             {"↳ " + project.impact}
           </p>
         </div>
+
         <div className="flex flex-wrap gap-2">
           {project.stack.map((tech) => (
             <span
@@ -302,6 +327,8 @@ function ProjectCardMobile({ project }: { project: Project }) {
             </span>
           ))}
         </div>
+
+        {/* ✅ FIXED LINKS */}
         <div className="flex items-center gap-6">
           <a
             href={project.github}
@@ -312,6 +339,7 @@ function ProjectCardMobile({ project }: { project: Project }) {
             <Github size={15} />
             <span>GitHub</span>
           </a>
+
           {project.live && (
             <a
               href={project.live}
