@@ -141,3 +141,19 @@
 .animate-star-btn {
   animation: star-btn calc(var(--duration) * 1s) linear infinite;
 }
+
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-spin {
+  from { --beam-angle: 0deg; }
+  to   { --beam-angle: 360deg; }
+}
+
+@keyframes circle-expand {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(4); opacity: 0; }
+}

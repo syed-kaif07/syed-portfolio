@@ -10,8 +10,8 @@ import {
 } from "framer-motion";
 
 const techItems = [
-  "Python", "TypeScript", "React", "Next.js", "Node.js",
-  "FastAPI", "PostgreSQL", "Docker", "CrewAI", "Tailwind CSS",
+  "Python", "TypeScript", "React", "Next.js", "MCP",
+  "FastAPI", "PostgreSQL", "Prompt Engineering", "CrewAI", "Tailwind CSS",
 ];
 
 function wrap(min: number, max: number, v: number): number {

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Github, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface Project {
   title: string;
@@ -27,7 +28,7 @@ const projects: Project[] = [
     impact: "Reduced manual research effort and automated structured insights generation.",
     stack: ["Python", "CrewAI", "Groq LLaMA 3.3", "Streamlit", "YAML"],
     github: "https://github.com/syed-kaif07/market-research-crew",
-    live: "#",
+    live: "/404",
     video: "/videos/market-research.mp4",
   },
   {
@@ -54,7 +55,6 @@ const projects: Project[] = [
   },
 ];
 
-// Media with custom animated cursor
 function MediaWithPointer({
   project,
   label,
@@ -81,16 +81,16 @@ function MediaWithPointer({
       className="overflow-hidden rounded-2xl w-full relative cursor-none"
     >
       {project.video ? (
-  <video
-    src={project.video}
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="w-full h-[480px] object-cover rounded-2xl"
-    style={{ objectPosition: project.index === 2 ? "top" : "center" }}
-  />
-) : (
+        <video
+          src={project.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-[480px] object-cover rounded-2xl"
+          style={{ objectPosition: project.index === 2 || project.index === 3 ? "top" : "center" }}
+        />
+      ) : (
         <img
           src={project.image}
           alt={project.title}
@@ -128,7 +128,35 @@ function MediaWithPointer({
   );
 }
 
-// Desktop Component
+function ViewProjectButton({ href }: { href: string }) {
+  const navigate = useNavigate();
+  const isInternal = href.startsWith("/");
+
+  if (isInternal) {
+    return (
+      <button
+        onClick={() => navigate(href)}
+        className="flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider"
+      >
+        <ExternalLink size={15} />
+        <span>View Project</span>
+      </button>
+    );
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider"
+    >
+      <ExternalLink size={15} />
+      <span>View Project</span>
+    </a>
+  );
+}
+
 function ProjectsDesktop() {
   const [active, setActive] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -233,8 +261,6 @@ function ProjectsDesktop() {
                         </span>
                       ))}
                     </div>
-
-                    {/* ✅ FIXED LINKS */}
                     <div className="flex items-center gap-6 mt-2">
                       <a
                         href={project.github}
@@ -245,17 +271,8 @@ function ProjectsDesktop() {
                         <Github size={15} />
                         <span>GitHub</span>
                       </a>
-
                       {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider"
-                        >
-                          <ExternalLink size={15} />
-                          <span>View Project</span>
-                        </a>
+                        <ViewProjectButton href={project.live} />
                       )}
                     </div>
                   </div>
@@ -269,7 +286,6 @@ function ProjectsDesktop() {
   );
 }
 
-// Mobile Component
 function ProjectCardMobile({ project }: { project: Project }) {
   return (
     <div className="border-t border-border py-10">
@@ -283,7 +299,6 @@ function ProjectCardMobile({ project }: { project: Project }) {
         <p className="text-sm font-medium text-white/40 uppercase tracking-widest">
           {project.subtitle}
         </p>
-
         <div className="overflow-hidden rounded-lg">
           {project.video ? (
             <video
@@ -302,7 +317,6 @@ function ProjectCardMobile({ project }: { project: Project }) {
             />
           )}
         </div>
-
         <div className="flex flex-col gap-3">
           <p className="text-base text-white/60">
             <span className="font-semibold text-white">Problem:</span>{" "}
@@ -316,7 +330,6 @@ function ProjectCardMobile({ project }: { project: Project }) {
             {"↳ " + project.impact}
           </p>
         </div>
-
         <div className="flex flex-wrap gap-2">
           {project.stack.map((tech) => (
             <span
@@ -327,8 +340,6 @@ function ProjectCardMobile({ project }: { project: Project }) {
             </span>
           ))}
         </div>
-
-        {/* ✅ FIXED LINKS */}
         <div className="flex items-center gap-6">
           <a
             href={project.github}
@@ -339,17 +350,8 @@ function ProjectCardMobile({ project }: { project: Project }) {
             <Github size={15} />
             <span>GitHub</span>
           </a>
-
           {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-white underline underline-offset-4 hover:text-white/70 transition-all"
-            >
-              <ExternalLink size={15} />
-              <span>View Project</span>
-            </a>
+            <ViewProjectButton href={project.live} />
           )}
         </div>
       </div>
@@ -357,7 +359,6 @@ function ProjectCardMobile({ project }: { project: Project }) {
   );
 }
 
-// Main Section
 const ProjectsSection = () => {
   return (
     <section id="projects" className="bg-background">
