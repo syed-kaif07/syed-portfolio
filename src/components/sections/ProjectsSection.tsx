@@ -12,7 +12,7 @@ interface Project {
   impact: string;
   stack: string[];
   github: string;
-  live?: string;
+  live: string;
   image?: string;
   video?: string;
   index: number;
@@ -40,6 +40,7 @@ const projects: Project[] = [
     impact: "Delivered fast, clean browsing experience with user personalization features.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
     github: "https://github.com/syed-kaif07/animehub",
+    live: "https://animehub-65p5-ba8v1qb2w-syedkaifuddin07-3345s-projects.vercel.app",
     video: "/videos/animehub.mp4",
   },
   {
@@ -51,6 +52,7 @@ const projects: Project[] = [
     impact: "Generated personalized itineraries instantly based on user preferences.",
     stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
     github: "#",
+    live: "/404",
     video: "/videos/travel.mp4",
   },
 ];
@@ -88,7 +90,10 @@ function MediaWithPointer({
           muted
           playsInline
           className="w-full h-[480px] object-cover rounded-2xl"
-          style={{ objectPosition: project.index === 2 || project.index === 3 ? "top" : "center" }}
+          style={{
+            objectPosition:
+              project.index === 2 || project.index === 3 ? "top" : "center",
+          }}
         />
       ) : (
         <img
@@ -131,13 +136,23 @@ function MediaWithPointer({
 function ViewProjectButton({ href }: { href: string }) {
   const navigate = useNavigate();
   const isInternal = href.startsWith("/");
+  const isDisabled = href === "#";
+
+  const cls =
+    "flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider";
+
+  if (isDisabled) {
+    return (
+      <span className="flex items-center gap-2 text-sm font-semibold text-white/30 uppercase tracking-wider cursor-not-allowed select-none">
+        <ExternalLink size={15} />
+        <span>View Project</span>
+      </span>
+    );
+  }
 
   if (isInternal) {
     return (
-      <button
-        onClick={() => navigate(href)}
-        className="flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider"
-      >
+      <button onClick={() => navigate(href)} className={cls}>
         <ExternalLink size={15} />
         <span>View Project</span>
       </button>
@@ -145,12 +160,7 @@ function ViewProjectButton({ href }: { href: string }) {
   }
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/70 transition-all uppercase tracking-wider"
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
       <ExternalLink size={15} />
       <span>View Project</span>
     </a>
@@ -271,9 +281,7 @@ function ProjectsDesktop() {
                         <Github size={15} />
                         <span>GitHub</span>
                       </a>
-                      {project.live && (
-                        <ViewProjectButton href={project.live} />
-                      )}
+                      <ViewProjectButton href={project.live} />
                     </div>
                   </div>
                 </div>
@@ -350,9 +358,7 @@ function ProjectCardMobile({ project }: { project: Project }) {
             <Github size={15} />
             <span>GitHub</span>
           </a>
-          {project.live && (
-            <ViewProjectButton href={project.live} />
-          )}
+          <ViewProjectButton href={project.live} />
         </div>
       </div>
     </div>
