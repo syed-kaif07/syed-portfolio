@@ -12,4 +12,6 @@ AI Agent Systems & Full Stack Developer
 - AnimeHub
 - Travel Itinerary Generator
 
+<!-- ui improvements -->
+
 Working on AI Agents...
