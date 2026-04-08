@@ -138,7 +138,7 @@ const AboutSection = () => {
               <h3 className="font-heading text-2xl font-black uppercase tracking-tight text-white leading-tight mb-3">Core Competencies</h3>
               <div className="h-px bg-white/[0.08] mb-4" />
               <div className="flex flex-wrap gap-2 mt-auto">
-                {["AI Agents", "LLMs", "Next.js", "FastAPI", "Supabase"].map((item) => (
+                {["AI Agents", "LLMs", "Next.js", "CrewAI", "Supabase"].map((item) => (
                   <span key={item} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/60 hover:text-white hover:border-white/25 transition-all cursor-default">{item}</span>
                 ))}
               </div>
