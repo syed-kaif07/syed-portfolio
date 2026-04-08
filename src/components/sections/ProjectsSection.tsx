@@ -40,7 +40,7 @@ const projects: Project[] = [
     impact: "Delivered fast, clean browsing experience with user personalization features.",
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
     github: "https://github.com/syed-kaif07/animehub",
-    live: "https://animehub-65p5-ba8v1qb2w-syedkaifuddin07-3345s-projects.vercel.app",
+    live: "https://animehub-65p5.vercel.app/",
     video: "/videos/animehub.mp4",
   },
   {
