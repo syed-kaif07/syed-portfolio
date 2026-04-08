@@ -107,7 +107,7 @@ const AboutSection = () => {
             </div>
             <div className="relative z-10 p-6 pt-4">
               <div className="flex items-center justify-between">
-                <span className="text-white/30 text-xs font-mono">syedkaifuddin4@gmail.com</span>
+                <span className="text-white/30 text-xs font-Space Grotesk">syedkaifuddin4@gmail.com</span>
                 <a href="mailto:syedkaifuddin4@gmail.com" className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-black hover:scale-110 active:scale-95 transition-all duration-300">
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
