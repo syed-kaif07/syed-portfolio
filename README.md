@@ -11,3 +11,5 @@ AI Agent Systems & Full Stack Developer
 - Market Research Crew (Multi-Agent AI)
 - AnimeHub
 - Travel Itinerary Generator
+
+Working on AI Agents...
