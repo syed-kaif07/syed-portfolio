@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 
 const techItems = [
-  "Python", "TypeScript", "React", "Next.js", "MCP",
+  "Python", "TypeScript", "React", "Next.js", "MCP","Shadcn","Agentic Coding",
   "Django", "PostgreSQL", "Prompt Engineering", "CrewAI", "Tailwind CSS",
 ];
 
