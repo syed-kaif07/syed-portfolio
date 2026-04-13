@@ -51,8 +51,8 @@ const projects: Project[] = [
     solution: "Built a system that generates dynamic travel itineraries using APIs",
     impact: "Generated personalized itineraries instantly based on user preferences.",
     stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
-    github: "/NotFound.tsx",
-    live: "/NotFound.tsx",
+    github: "/404",
+    live: "/404",
     video: "/videos/travel.mp4",
   },
 ];
