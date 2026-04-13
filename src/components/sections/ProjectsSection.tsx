@@ -167,6 +167,29 @@ function ViewProjectButton({ href }: { href: string }) {
   );
 }
 
+function GithubButton({ href }: { href: string }) {
+  const navigate = useNavigate();
+  const isInternal = href.startsWith("/");
+  const cls =
+    "flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-all uppercase tracking-wider";
+
+  if (isInternal) {
+    return (
+      <button onClick={() => navigate(href)} className={cls}>
+        <Github size={15} />
+        <span>GitHub</span>
+      </button>
+    );
+  }
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      <Github size={15} />
+      <span>GitHub</span>
+    </a>
+  );
+}
+
 function ProjectsDesktop() {
   const [active, setActive] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -272,15 +295,7 @@ function ProjectsDesktop() {
                       ))}
                     </div>
                     <div className="flex items-center gap-6 mt-2">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-all uppercase tracking-wider"
-                      >
-                        <Github size={15} />
-                        <span>GitHub</span>
-                      </a>
+                      <GithubButton href={project.github} />
                       <ViewProjectButton href={project.live} />
                     </div>
                   </div>
@@ -349,15 +364,7 @@ function ProjectCardMobile({ project }: { project: Project }) {
           ))}
         </div>
         <div className="flex items-center gap-6">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-all"
-          >
-            <Github size={15} />
-            <span>GitHub</span>
-          </a>
+          <GithubButton href={project.github} />
           <ViewProjectButton href={project.live} />
         </div>
       </div>
