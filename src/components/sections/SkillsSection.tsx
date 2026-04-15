@@ -76,7 +76,7 @@ const SkillsSection = () => {
             badge="AI & ML"
             title="AI Systems"
             icon={Brain}
-            skills={["LangChain", "LLM Integration", "RAG Pipelines", "Agent Design"]}
+            skills={["CrewAI","LangChain", "LLM Integration", "RAG Pipelines", "Agent Design"]}
             className="md:col-span-2 md:row-span-1"
             beamDelay={0}
           />
@@ -84,7 +84,7 @@ const SkillsSection = () => {
             badge="Server"
             title="Backend"
             icon={Server}
-            skills={["FastAPI", "Node.js", "PostgreSQL", "Redis"]}
+            skills={["FastAPI", "PostgreSQL", "Redis"]}
             className="md:col-span-1 md:row-span-1"
             beamDelay={2}
           />
@@ -102,7 +102,7 @@ const SkillsSection = () => {
             badge="Storage"
             title="Database"
             icon={Database}
-            skills={["PostgreSQL", "MongoDB", "Supabase", "Prisma"]}
+            skills={["PostgreSQL", "MongoDB", "Supabase", "MySQL"]}
             className="md:col-span-2 md:row-span-1"
             beamDelay={6}
           />
