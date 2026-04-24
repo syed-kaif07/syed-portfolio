@@ -174,7 +174,8 @@ const ContactSection = () => {
           Want To Collab?
         </h2>
         <p className="mt-6 text-lg text-white/60 max-w-3xl mx-auto leading-relaxed">
-          Whether it’s AI agents, intelligent automation, or a full-stack product, I build systems that analyze, decide, and execute — end to end.
+          Whether it’s AI agents, intelligent automation, or a full-stack product,<br />
+          I build systems that analyze, decide, and execute — end to end.
         </p>
       </div>
 

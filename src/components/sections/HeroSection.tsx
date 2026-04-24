@@ -137,8 +137,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="mt-5 max-w-[1300px] text-2xl md:text-4xl font-normal text-white leading-tight tracking-tight"
         >
-          From AI-driven automation to full-stack product development, <br />I build scalable systems that turn ideas into intelligent, working
-          solutions.
+          I build AI-powered full-stack systems that think, decide, and execute.
         </motion.p>
 
         {/* CTA */}
