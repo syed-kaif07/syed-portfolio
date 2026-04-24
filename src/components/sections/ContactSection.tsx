@@ -174,7 +174,7 @@ const ContactSection = () => {
           Want To Collab?
         </h2>
         <p className="mt-6 text-lg text-white/60 max-w-3xl mx-auto leading-relaxed">
-          Whether you need an intelligent assistant, end-to-end automation, or a complete product overhaul, I'm ready to turn your vision into reality.
+          Whether it’s AI agents, intelligent automation, or a full-stack product, I build systems that analyze, decide, and execute — end to end.
         </p>
       </div>
 
