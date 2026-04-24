@@ -135,9 +135,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="mt-5 max-w-[1300px] text-2xl md:text-4xl font-normal text-white leading-tight tracking-tight"
+          className="mt-5 max-w-[1300px] text-2xl md:text-6xl font-normal text-white leading-tight tracking-tight"
         >
-          I build AI-powered full-stack systems that think, decide, and execute.
+          I design AI agents and full-stack systems that <br /> automate real-world workflows.
         </motion.p>
 
         {/* CTA */}
