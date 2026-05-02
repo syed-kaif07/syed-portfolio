@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Github, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { OptimizedVideo } from "@/components/ui/OptimizedVideo";
 
 interface Project {
   title: string;
@@ -15,6 +16,7 @@ interface Project {
   live: string;
   image?: string;
   video?: string;
+  poster?: string;
   index: number;
 }
 
@@ -30,6 +32,7 @@ const projects: Project[] = [
     github: "https://github.com/syed-kaif07/market-research-crew",
     live: "/404",
     video: "/videos/market-research.mp4",
+    poster: "/videos/market-research-poster.jpg",
   },
   {
     index: 2,
@@ -42,6 +45,7 @@ const projects: Project[] = [
     github: "https://github.com/syed-kaif07/animehub",
     live: "https://animehub-65p5.vercel.app/",
     video: "/videos/animehub.mp4",
+    poster: "/videos/animehub-poster.jpg",
   },
   {
     index: 3,
@@ -54,6 +58,7 @@ const projects: Project[] = [
     github: "/404",
     live: "/404",
     video: "/videos/travel.mp4",
+    poster: "/videos/travel-poster.jpg",
   },
 ];
 
@@ -82,18 +87,16 @@ function MediaWithPointer({
       onMouseLeave={() => setIsInside(false)}
       className="overflow-hidden rounded-2xl w-full relative cursor-none"
     >
-      {project.video ? (
-        <video
+      {project.video && project.poster ? (
+        <OptimizedVideo
+          poster={project.poster}
           src={project.video}
-          autoPlay
-          loop
-          muted
-          playsInline
           className="w-full h-[480px] object-cover rounded-2xl"
           style={{
             objectPosition:
               project.index === 2 || project.index === 3 ? "top" : "center",
           }}
+          loadDelay={400}
         />
       ) : (
         <img
@@ -323,14 +326,12 @@ function ProjectCardMobile({ project }: { project: Project }) {
           {project.subtitle}
         </p>
         <div className="overflow-hidden rounded-lg">
-          {project.video ? (
-            <video
+          {project.video && project.poster ? (
+            <OptimizedVideo
+              poster={project.poster}
               src={project.video}
-              autoPlay
-              loop
-              muted
-              playsInline
               className="w-full h-[220px] object-cover"
+              loadDelay={300}
             />
           ) : (
             <img
