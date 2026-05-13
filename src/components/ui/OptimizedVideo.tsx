@@ -35,9 +35,10 @@ const OptimizedVideoComponent = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasLoadedRef = useRef(isHero); // tracks if we ever loaded; never goes back to false
 
-  const [isIntersecting, setIsIntersecting] = useState(isHero);
   const [shouldLoad, setShouldLoad] = useState(isHero);
+  const [isVisible, setIsVisible] = useState(isHero);
 
   useEffect(() => {
     if (isHero) return;
@@ -48,17 +49,24 @@ const OptimizedVideoComponent = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          timerRef.current = setTimeout(() => {
-            setShouldLoad(true);
-          }, loadDelay);
+          setIsVisible(true);
+
+          // Only trigger a load the very first time
+          if (!hasLoadedRef.current) {
+            timerRef.current = setTimeout(() => {
+              hasLoadedRef.current = true;
+              setShouldLoad(true);
+            }, loadDelay);
+          }
         } else {
-          setIsIntersecting(false);
+          setIsVisible(false);
+          // Clear the timer if user scrolls away before delay fires
           if (timerRef.current) {
             clearTimeout(timerRef.current);
             timerRef.current = null;
           }
-          setShouldLoad(false);
+          // No longer resetting shouldLoad to false here.
+          // Once loaded, the video stays loaded in memory.
         }
       },
       { rootMargin, threshold }
@@ -71,23 +79,25 @@ const OptimizedVideoComponent = ({
     };
   }, [isHero, loadDelay, rootMargin, threshold]);
 
+  // Runs exactly once when shouldLoad flips to true
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
+    video.load();
+  }, [shouldLoad]);
 
-    if (shouldLoad) {
-      video.load();
-      if (isIntersecting) {
-        const promise = video.play();
-        if (promise !== undefined) {
-          promise.catch(() => {});
-        }
-      }
+  // Play/pause based on visibility, but only after loaded
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    if (isVisible) {
+      const promise = video.play();
+      if (promise !== undefined) promise.catch(() => {});
     } else {
-      video.pause();
-      video.load();
+      video.pause(); // pause when scrolled out, but keep it loaded
     }
-  }, [shouldLoad, isIntersecting]);
+  }, [isVisible, shouldLoad]);
 
   return (
     <div ref={containerRef} className="w-full h-full">
@@ -104,7 +114,9 @@ const OptimizedVideoComponent = ({
       >
         {shouldLoad && sources && sources.length > 0
           ? sources.map((s) => <source key={s.src} src={s.src} type={s.type} />)
-          : shouldLoad && src && <source src={src} type="video/mp4" />}
+          : shouldLoad && src
+          ? <source src={src} type="video/mp4" />
+          : null}
       </video>
     </div>
   );
