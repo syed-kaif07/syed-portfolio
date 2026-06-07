@@ -31,7 +31,7 @@ const projects: Project[] = [
     stack: ["Python", "CrewAI", "Groq LLaMA 3.3", "Streamlit", "YAML"],
     github: "https://github.com/syed-kaif07/market-research-crew",
     live: "/404",
-    video: "/videos/market-research.mp4",
+    video: "/videos/market-research.webm",
     poster: "/videos/market-research-poster.jpg",
   },
   {
@@ -44,7 +44,7 @@ const projects: Project[] = [
     stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
     github: "https://github.com/syed-kaif07/animehub",
     live: "https://animehub-65p5.vercel.app/",
-    video: "/videos/animehub.mp4",
+    video: "/videos/animehub.webm",
     poster: "/videos/animehub-poster.jpg",
   },
   {
@@ -57,7 +57,7 @@ const projects: Project[] = [
     stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
     github: "/404",
     live: "/404",
-    video: "/videos/travel.mp4",
+    video: "/videos/travel.webm",
     poster: "/videos/travel-poster.jpg",
   },
 ];
@@ -90,7 +90,9 @@ function MediaWithPointer({
       {project.video && project.poster ? (
         <OptimizedVideo
           poster={project.poster}
-          src={project.video}
+          sources={[
+            { src: project.video, type: "video/webm" }
+          ]}
           className="w-full h-[480px] object-cover rounded-2xl"
           style={{
             objectPosition:
@@ -329,7 +331,9 @@ function ProjectCardMobile({ project }: { project: Project }) {
           {project.video && project.poster ? (
             <OptimizedVideo
               poster={project.poster}
-              src={project.video}
+              sources={[
+                { src: project.video, type: "video/webm" }
+              ]}
               className="w-full h-[220px] object-cover"
               loadDelay={300}
             />
