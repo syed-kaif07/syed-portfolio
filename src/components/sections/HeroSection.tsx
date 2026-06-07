@@ -20,13 +20,13 @@ const HeroSection = () => {
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        className="absolute top-4 left-4 z-30 sm:top-6 sm:left-6 md:top-10 md:left-10 cursor-pointer"
+        className="hidden sm:block absolute top-4 left-6 md:top-6 md:left-10 z-30 cursor-pointer"
         aria-label="Home"
       >
         <img
           src="/syed-logo.png"
           alt="SYED logo"
-          className="h-20 sm:h-24 md:h-32 w-auto object-contain"
+          className="h-10 sm:h-16 md:h-24 w-auto object-contain"
           style={{
             filter: "drop-shadow(0 0 20px rgba(255,255,255,0.15))",
           }}
