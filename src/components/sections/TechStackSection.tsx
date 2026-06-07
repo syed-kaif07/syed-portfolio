@@ -11,7 +11,7 @@ import {
 
 const techItems = [
   "Python", "TypeScript", "React", "Next.js", "MCP","Shadcn","Agentic Coding",
-  "Django", "PostgreSQL", "Prompt Engineering", "CrewAI", "Tailwind CSS",
+  "Django", "PostgreSQL", "Prompt Engineering", "CrewAI", "Tailwind CSS", "LangChain"
 ];
 
 function wrap(min: number, max: number, v: number): number {

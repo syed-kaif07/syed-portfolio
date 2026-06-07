@@ -98,7 +98,8 @@ function MediaWithPointer({
             objectPosition:
               project.index === 2 || project.index === 3 ? "top" : "center",
           }}
-          loadDelay={400}
+          isHero={true}
+          preload="auto"
         />
       ) : (
         <img
@@ -335,7 +336,8 @@ function ProjectCardMobile({ project }: { project: Project }) {
                 { src: project.video, type: "video/webm" }
               ]}
               className="w-full h-[220px] object-cover"
-              loadDelay={300}
+              isHero={true}
+              preload="auto"
             />
           ) : (
             <img
