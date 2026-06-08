@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { TextEffect } from "@/components/ui/text-effect";
+import { ShiningText } from "@/components/ui/shining-text";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true); // Starts muted for autoplay compliance
+
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(false); // Enabled by default
   const [isNearHero, setIsNearHero] = useState(false);
   const [userHasInteracted, setUserHasInteracted] = useState(false);
 
@@ -34,7 +36,7 @@ const HeroSection = () => {
 
     if (targetVolume > 0 && audio.paused) {
       audio.volume = 0;
-      audio.play().catch(() => {});
+      audio.play().catch(() => { });
     }
 
     const startVolume = audio.volume;
@@ -63,7 +65,7 @@ const HeroSection = () => {
   const playAudio = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    
+
     audio.play()
       .then(() => {
         setIsPlaying(true);
@@ -72,6 +74,7 @@ const HeroSection = () => {
       })
       .catch((err) => {
         console.log("Autoplay deferred. Waiting for click interaction.", err);
+        setIsPlaying(false);
       });
   };
 
@@ -91,7 +94,7 @@ const HeroSection = () => {
       audio.play().then(() => {
         setIsPlaying(true);
         setIsMuted(false);
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
 
@@ -245,6 +248,41 @@ const HeroSection = () => {
           />
         </picture>
       </motion.div>
+
+      {/* Animated Text Effect */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 text-center w-full max-w-2xl px-6 pointer-events-none">
+        <motion.p
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15, delayChildren: 0.6 }
+            }
+          }}
+          className="text-white/60 font-heading text-xs sm:text-sm uppercase tracking-[0.2em] font-medium leading-relaxed"
+        >
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            I build{" "}
+          </motion.span>
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            <ShiningText text="intelligent systems" className="font-bold tracking-[0.2em]" />
+          </motion.span>
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            {" "}that analyze, reason, and execute —{" "}
+          </motion.span>
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            turning complex workflows into{" "}
+          </motion.span>
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            <ShiningText text="autonomous solutions" className="font-bold tracking-[0.2em]" />
+          </motion.span>
+          <motion.span className="inline" variants={{ hidden: { opacity: 0, filter: "blur(6px)" }, visible: { opacity: 1, filter: "blur(0px)" } }}>
+            .
+          </motion.span>
+        </motion.p>
+      </div>
     </section>
   );
 };

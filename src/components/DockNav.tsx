@@ -1,5 +1,4 @@
-"use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -51,11 +50,11 @@ const WavyNavLink = ({
             animate={
               isHovered
                 ? {
-                    y: [0, -6, 0],
-                  }
+                  y: [0, -6, 0],
+                }
                 : {
-                    y: 0,
-                  }
+                  y: 0,
+                }
             }
             transition={{
               type: "spring",
@@ -91,6 +90,25 @@ const WavyNavLink = ({
 
 const DockNav = () => {
   const [active, setActive] = useState(items[0].name);
+  const [isLowOpacity, setIsLowOpacity] = useState(false);
+
+  const isHoveredRef = useRef(false);
+  const inactivityTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetInactivityTimer = useCallback(() => {
+    setIsLowOpacity(false);
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+    }
+
+    if (isHoveredRef.current) return;
+
+    if (window.scrollY > 50) {
+      inactivityTimeoutRef.current = setTimeout(() => {
+        setIsLowOpacity(true);
+      }, 2000); // Fades out after 2 seconds of inactivity
+    }
+  }, []);
 
   const handleScroll = useCallback(() => {
     const offsets = items.map((item) => {
@@ -102,12 +120,34 @@ const DockNav = () => {
       Math.abs(curr.top) < Math.abs(prev.top) ? curr : prev
     );
     setActive(current.name);
-  }, []);
+
+    if (window.scrollY < 50) {
+      setIsLowOpacity(false);
+      if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current);
+      }
+    } else {
+      resetInactivityTimer();
+    }
+  }, [resetInactivityTimer]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  // Wake up when the user clicks or taps anywhere on the screen
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      resetInactivityTimer();
+    };
+    window.addEventListener("click", handleGlobalClick);
+    window.addEventListener("touchstart", handleGlobalClick);
+    return () => {
+      window.removeEventListener("click", handleGlobalClick);
+      window.removeEventListener("touchstart", handleGlobalClick);
+    };
+  }, [resetInactivityTimer]);
 
   useEffect(() => {
     // Reset scroll to top on refresh
@@ -115,6 +155,11 @@ const DockNav = () => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    return () => {
+      if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current);
+      }
+    };
   }, []);
 
   const scrollTo = (href: string) => {
@@ -122,8 +167,33 @@ const DockNav = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleMouseEnter = () => {
+    isHoveredRef.current = true;
+    setIsLowOpacity(false);
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isHoveredRef.current = false;
+    if (window.scrollY > 50) {
+      inactivityTimeoutRef.current = setTimeout(() => {
+        setIsLowOpacity(true);
+      }, 1500);
+    }
+  };
+
   return (
-    <nav className="fixed top-4 left-1/2 z-50 -translate-x-1/2 flex items-center justify-center gap-1 sm:gap-2 p-1.5 max-w-[95vw] overflow-x-auto no-scrollbar">
+    <nav
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="fixed top-4 left-1/2 z-50 -translate-x-1/2 flex items-center justify-center gap-1 sm:gap-2 p-1.5 max-w-[95vw] overflow-x-auto no-scrollbar"
+      style={{
+        opacity: isLowOpacity ? 0.25 : 1,
+        transition: "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+    >
       {items.map((item) => (
         <WavyNavLink
           key={item.name}
@@ -134,6 +204,7 @@ const DockNav = () => {
             e.preventDefault();
             setActive(item.name);
             scrollTo(item.href);
+            resetInactivityTimer();
           }}
         />
       ))}
