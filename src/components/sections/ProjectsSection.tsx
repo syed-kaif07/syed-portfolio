@@ -382,7 +382,7 @@ function ProjectCardMobile({ project }: { project: Project }) {
 const ProjectsSection = () => {
   return (
     <section id="projects" className="bg-background">
-      <div className="px-8 pt-xxl pb-8">
+      <div className="px-8 pt-0 pb-8">
         <p className="text-xs font-mono text-white/30 uppercase tracking-widest mb-2">
           [03] Work
         </p>

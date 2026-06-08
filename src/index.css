@@ -98,6 +98,11 @@
     @apply border-border;
   }
 
+  ::selection {
+    background-color: #420B5A;
+    color: #ffffff;
+  }
+
   html {
     scroll-behavior: smooth;
   }

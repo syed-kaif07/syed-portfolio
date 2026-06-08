@@ -2,7 +2,7 @@ import Demo from "@/components/ui/demo";
 
 const TechStackSection = () => {
   return (
-    <section id="techstack" className="py-xxl">
+    <section id="techstack" className="pt-xxl pb-0">
       <h2 className="font-heading font-black uppercase tracking-tighter text-foreground text-left text-[4rem] leading-none md:text-[6rem] lg:text-[8rem] mb-4 px-4 lg:px-[30px]">
         Tech Stack
       </h2>

@@ -492,37 +492,6 @@ export function N8nWorkflowBlock() {
           })}
         </div>
       </div>
-
-      {/* Footer Stats */}
-      <div
-        className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border/30 bg-background/40 px-4 py-2.5 backdrop-blur-sm"
-        role="status"
-        aria-live="polite"
-      >
-        <div className="flex flex-wrap items-center gap-4 text-xs text-foreground/60">
-          <div className="flex items-center gap-2">
-            <div
-              className="h-1.5 w-1.5 rounded-full bg-emerald-500"
-              aria-hidden="true"
-            />
-            <span className="uppercase tracking-[0.15em] font-medium">
-              {nodes.length} Steps
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div
-              className="h-1.5 w-1.5 rounded-full bg-primary"
-              aria-hidden="true"
-            />
-            <span className="uppercase tracking-[0.15em] font-medium">
-              {connections.length} Connections
-            </span>
-          </div>
-        </div>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-foreground/40 font-medium">
-          Drag steps to reposition
-        </p>
-      </div>
     </div>
   );
 }
