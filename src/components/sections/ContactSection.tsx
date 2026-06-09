@@ -213,15 +213,14 @@ const ContactSection = () => {
 
         <div className="flex flex-col items-center md:items-end gap-3">
           <a
-            href="https://drive.google.com/file/d/1cr1cCq_xGRRdWks6mfMtgrIMBTKokWc2/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1-Z80Hpprc9-CxrEX0ynPJYAPU99B_Tkx/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-[1.03] min-w-[200px]"
           >
             <Download size={16} />
             Download Resume
-          </a>
-
+          </a> 
           <button
             disabled
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white/30 cursor-not-allowed min-w-[200px]"
