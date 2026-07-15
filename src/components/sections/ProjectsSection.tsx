@@ -23,6 +23,19 @@ interface Project {
 const projects: Project[] = [
   {
     index: 1,
+    title: "Knowledge RAG",
+    subtitle: "Production-Grade RAG System",
+    problem: "Querying research papers manually is slow and answers often lack grounded citations",
+    solution: "Built a hybrid RAG pipeline with BM25 + vector search, Cohere reranking, HyDE query expansion, and retrieval observability with faithfulness scoring",
+    impact: "Delivered citation-backed answers with no-hallucination policy and full query-level observability.",
+    stack: ["Python", "LangChain", "NVIDIA NIM", "Cohere Rerank", "Chroma", "Streamlit"],
+    github: "https://github.com/syed-kaif07/Knowledge-RAG",
+    live: "/404",
+    video: "/videos/knowledge-rag.webm",
+    poster: "/videos/knowledge-rag-poster.jpg",
+  },
+  {
+    index: 2,
     title: "Market Research Crew",
     subtitle: "Multi-Agent AI System",
     problem: "Manual research and content generation workflows are slow and inconsistent",
@@ -35,7 +48,7 @@ const projects: Project[] = [
     poster: "/videos/market-research-poster.jpg",
   },
   {
-    index: 2,
+    index: 3,
     title: "AnimeHub",
     subtitle: "Full-Stack Streaming Platform",
     problem: "Existing anime platforms are cluttered and lack clean browsing experience",
@@ -46,19 +59,6 @@ const projects: Project[] = [
     live: "https://animehub-65p5.vercel.app/",
     video: "/videos/animehub.webm",
     poster: "/videos/animehub-poster.jpg",
-  },
-  {
-    index: 3,
-    title: "Travel AI",
-    subtitle: "AI-Powered Itinerary Generator",
-    problem: "Users struggle to create personalized travel plans based on preferences",
-    solution: "Built a system that generates dynamic travel itineraries using APIs",
-    impact: "Generated personalized itineraries instantly based on user preferences.",
-    stack: ["HTML", "CSS", "JavaScript", "Django", "APIs"],
-    github: "/404",
-    live: "/404",
-    video: "/videos/travel.webm",
-    poster: "/videos/travel-poster.jpg",
   },
 ];
 
