@@ -75,7 +75,7 @@ const ConnectButton = () => {
       spinning.current = false;
     }, 650);
 
-    window.open("mailto:syedkaifuddin4@gmail.com", "_blank");
+    window.open("https://calendly.com/syedkaifuddin07/30min", "_blank");
   }, []);
 
   return (
